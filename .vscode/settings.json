@@ -1,0 +1,13 @@
+{
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.startupEditor": "none",
+  "editor.minimap.enabled": false,
+  "explorer.confirmDelete": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.renderSideBySide": false,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "prettier.requirePragma": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.acceptSuggestionOnCommitCharacter": false
+}
