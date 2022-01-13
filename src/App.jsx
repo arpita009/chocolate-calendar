@@ -4,5 +4,5 @@ import { Typography } from '@mui/material';
 
 export default () => {
   const { t } = useTranslation();
-  return <Typography>{t('happyHolidays')}</Typography>;
+  return <Typography>{t('happyHolidays I love you')}</Typography>;
 };

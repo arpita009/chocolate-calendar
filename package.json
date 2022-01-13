@@ -28,6 +28,7 @@
     "@testing-library/react": "^12.1.0",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
+    "dotenv": "^11.0.0",
     "i18next": "^20.4.0",
     "i18next-browser-languagedetector": "^6.1.2",
     "react": ">=16.8.0",
