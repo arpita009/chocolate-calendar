@@ -5,13 +5,16 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/lab";
 import dateFormatting from './helperFunctions/dateFormatting';
 import { useHistory } from "react-router"; 
+import {  useDispatch } from 'react-redux';
+import {submitCurrentDate} from './userSlice'
 
 const Home =(props)=>{
     const [name, setName] =useState('')
     const [startDate, setStartDate] = React.useState(new Date());
     const [formErrors, setFormErrors] = useState({}) //state variable to track form errors
     const errors={} //local error variable
-    const history=useHistory()
+    const history=useHistory();
+    const dispatch=useDispatch();
     const handleChange = (e) => {
         setName(e.target.value);
     };
@@ -32,12 +35,16 @@ const Home =(props)=>{
         console.log('Inside hand')
         if (Object.keys(errors).length === 0) {
           setFormErrors({});
-          const day = dateFormatting(startDate);
+        //   const day = dateFormatting(startDate);
           const formData = {
             name,
-            day
+            day: startDate.getDate(),
+            month: startDate.getMonth(),
+            year: startDate.getFullYear()
           };
           console.log("formData", formData);
+          dispatch(submitCurrentDate(formData))
+
         //   redirect to chocolate calendar page on form submission
           history.push("/chocolateCalendar");
         } else {
@@ -75,8 +82,8 @@ const Home =(props)=>{
                 }}
                 renderInput={(params) => <TextField {...params} />}
                 />
-            <br />
             </LocalizationProvider>
+            <br /><br />
             <Button variant='contained' type='submit'>Submit</Button>
         </form>
     );

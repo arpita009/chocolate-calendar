@@ -1,1 +1,0 @@
-//create actions in Home page based on reducer functions
