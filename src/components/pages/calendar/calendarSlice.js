@@ -17,18 +17,28 @@ const initialState = {
 //         console.log('response',response);
 //     }
 // );
-async function getCalendarStatus(day){
-    const response=await getStatus();
-    console.log('response getCalendarStatus',response,day);
+async function getCalendarStatus(){
+    const response= getStatus();
+    // console.log('response getCalendarStatus',response.data);
+    return response;
 }
 
 export const setStatusAvailableToOpenAsync = createAsyncThunk(
     'calendar/postOpen',
-    async (day)=>{
+    async (day,dispatch)=>{
         const response= await postOpen(day);
         if(response.status===200){
-            const calendarStatusData=getCalendarStatus(day);
-            console.log('calendarStatusData',calendarStatusData);
+            console.log('dispatch',dispatch);
+            const calendarStatusResp=await getCalendarStatus();
+            console.log('calendarStatusResp',calendarStatusResp);
+            const calendarStatusData= calendarStatusResp.data;
+            console.log('calendarStatusData',calendarStatusData,day,Array.isArray(calendarStatusData) );
+            const findDay=calendarStatusData.find(eachDay=>eachDay && eachDay.day===day);
+            if(findDay && findDay.status==='open'){
+                console.log('findDayxxxx',findDay);
+            }else{
+                console.log('else findDay',findDay);
+            }
         }else{
             Swal.fire({
                 icon : 'error',
@@ -82,7 +92,7 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
     const dayStatus = selectDayStatus(getState());
     switch(dayStatus[day].status){
         case calendarStatus.Available:{
-            dispatch(setStatusAvailableToOpenAsync(day));
+            dispatch(setStatusAvailableToOpenAsync(day,dispatch));
             break;
         }
         case calendarStatus.NotAvailable:{
