@@ -10,41 +10,26 @@ const initialState = {
     calStatus: 'idle',
 };
 
-// export const getCalendarStatus = createAsyncThunk(
-//     'calendar/getStatus',
-//     async(day) =>{
-//         const response=await getStatus(day);
-//         console.log('response',response);
-//     }
-// );
 async function getCalendarStatus(){
     const response= getStatus();
-    // console.log('response getCalendarStatus',response.data);
     return response;
 }
 
 export const setStatusAvailableToOpenAsync = createAsyncThunk(
     'calendar/postOpen',
-    async (day,dispatch)=>{
+    async (day)=>{
         const response= await postOpen(day);
         if(response.status===200){
-            console.log('dispatch',dispatch);
-            const calendarStatusResp=await getCalendarStatus();
-            console.log('calendarStatusResp',calendarStatusResp);
+            const calendarStatusResp= await getCalendarStatus();
             const calendarStatusData= calendarStatusResp.data;
-            console.log('calendarStatusData',calendarStatusData,day,Array.isArray(calendarStatusData) );
             const findDay=calendarStatusData.find(eachDay=>eachDay && eachDay.day===day);
-            if(findDay && findDay.status==='open'){
-                console.log('findDayxxxx',findDay);
-            }else{
-                console.log('else findDay',findDay);
-            }
-        }else{
-            Swal.fire({
+            if(findDay && findDay.status==='open')return day;
+        }
+        Swal.fire({
                 icon : 'error',
                 title: "Can't post",
             });
-        }
+        return 'Error';
     }
 );
 export const calendarSlice=createSlice({
@@ -59,6 +44,7 @@ export const calendarSlice=createSlice({
         },
         setStatusNotAvailableToAvailableOnNextDay: (state,action)=>{
             const currDay=action.payload;
+            console.log('currDay',currDay);
             state.dayStatus[currDay].status=calendarStatus.Available;            
         }
     },
@@ -67,21 +53,14 @@ export const calendarSlice=createSlice({
           .addCase(setStatusAvailableToOpenAsync.pending, (state) => {
             state.status = 'loading';
           })
-          .addCase(setStatusAvailableToOpenAsync.fulfilled, (state) => {
+          .addCase(setStatusAvailableToOpenAsync.fulfilled, (state,action) => {
             state.status = 'idle';
+            const currDay = action.payload;
+            state.dayStatus[currDay-1].status=calendarStatus.Open;  
           })
           .addCase(setStatusAvailableToOpenAsync.rejected, (state) => {
             state.status = 'failed';
           })
-        //   .addCase(getCalendarStatus.pending, (state) => {
-        //     state.status = 'loading';
-        //   })
-        //   .addCase(getCalendarStatus.fulfilled, (state) => {
-        //     state.status = 'idle';
-        //   })
-        //   .addCase(getCalendarStatus.rejected, (state) => {
-        //     state.status = 'failed';
-        //   })
     },
 });
 
@@ -92,7 +71,7 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
     const dayStatus = selectDayStatus(getState());
     switch(dayStatus[day].status){
         case calendarStatus.Available:{
-            dispatch(setStatusAvailableToOpenAsync(day,dispatch));
+            dispatch(setStatusAvailableToOpenAsync(day));
             break;
         }
         case calendarStatus.NotAvailable:{
