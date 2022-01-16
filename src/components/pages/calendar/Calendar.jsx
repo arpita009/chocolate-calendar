@@ -44,8 +44,8 @@ const Calendar =(props)=>{
     };
 
     const handleNextDay=()=>{
+        dispatch(setStatusNotAvailableToAvailableOnNextDay(selectCurrentDate.getDate()));
         setSelectCurrentDate(new Date(selectCurrentDate.getFullYear(),selectCurrentDate.getMonth(),selectCurrentDate.getDate()+1));
-        // dispatch(setStatusNotAvailableToAvailableOnNextDay())
     };
 
     return(

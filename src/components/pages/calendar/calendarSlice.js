@@ -19,8 +19,9 @@ export const calendarSlice=createSlice({
             state.dayStatus=[...resultRows];
         },
         setStatusNotAvailableToAvailableOnNextDay: (state,action)=>{
-            const nextDay=action.payload;
-            state.dayStatus[nextDay].status=1;
+            const currDay=action.payload;
+            state.dayStatus[currDay].status=1;
+            console.log('setStatusNotAvailableToAvailableOnNextDay',currDay,state.dayStatus);
             // const resultDayStatus=state.dayStatus.map((day)=>{
             //     if(day>nextDay){
             //         return [...state.dayStatus,]
@@ -29,6 +30,6 @@ export const calendarSlice=createSlice({
         }
     }
 })
-export const {initializeCalendarStatus} =calendarSlice.actions;
+export const {initializeCalendarStatus,setStatusNotAvailableToAvailableOnNextDay} =calendarSlice.actions;
 export const selectDayStatus = (state) => state.calendar.dayStatus;
 export default calendarSlice.reducer; 
