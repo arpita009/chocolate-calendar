@@ -8,7 +8,7 @@ import getDayInfo from '../home/helperFunctions/getDayInfo';
 import { Box,Typography,Button } from '@mui/material'
 import ShowTable from './ShowTable';
 import getFormatDate from '../home/helperFunctions/getFormatDate';
-import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay} from './calendarSlice'
+import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay,calendarDateChange} from './calendarSlice'
 
 const Calendar =(props)=>{
     // Declare State Variables
@@ -40,6 +40,8 @@ const Calendar =(props)=>{
     };
 
     const handleDateChange=(value)=>{
+        console.log('handleDateChange',value.getDate());
+        dispatch(calendarDateChange(value.getDate()));
         setSelectedDate(value.getDate());
     };
 
