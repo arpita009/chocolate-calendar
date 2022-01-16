@@ -2,7 +2,7 @@ const monthDateMap=[{0:31},{1:28},{2:31},{3:30},{4:31},{5:30},{6:31},{7:31},{8:3
 const isALeapYear= (year) =>((year % 100 === 0) ? (year % 400 === 0): (year % 4 === 0));
 
 function getDayInfo(year,month){
-    if(month===0 || year===0){
+    if( year===0){
         return 0;
     }
     if (isALeapYear(year) && month===2){
