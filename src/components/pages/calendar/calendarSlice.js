@@ -14,12 +14,14 @@ export const calendarSlice=createSlice({
             const eachDayStatus={userSelectedDay:action.payload.userSelectedDay,maxDays:action.payload.maxDays};
             const slNos=Array.from({length: eachDayStatus.maxDays}, (_, i) => i + 1);
             const resultRows=slNos.map(day=>(day>eachDayStatus.userSelectedDay) ? ({day,status:0}): ({day,status:1}));
-            // 0 represents 'Not available' for future dates
-            // 1 represents 'Available' (current day + past days)
+            // status 0 represents 'Not available' for future dates
+            // status 1 represents 'Available' (current day + past days)
             console.log('resultRows',resultRows);
+            state.dayStatus=[...resultRows];
 
         }
     }
 })
 export const {initializeCalendarStatus} =calendarSlice.actions;
+export const selectDayStatus = (state) => state.calendar.dayStatus;
 export default calendarSlice.reducer; 
