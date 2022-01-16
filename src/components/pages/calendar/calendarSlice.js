@@ -13,16 +13,28 @@ const initialState = {
 async function getCalendarStatus(){
     const response= getStatus();
     return response;
-}
+};
+async function getStatusForDay(day){
+    const calendarStatusResp= await getCalendarStatus();
+    const calendarStatusData= calendarStatusResp.data;
+    const findDay=calendarStatusData.find(eachDay=>eachDay && eachDay.day===day);
+    
+    return findDay;
+};
 
 export const setStatusAvailableToOpenAsync = createAsyncThunk(
     'calendar/postOpen',
     async (day)=>{
+        const getFindDay=await getStatusForDay(day);
+        if(getFindDay && getFindDay.status==='closed'){
+            return 'error';
+        }
+        if(getFindDay && getFindDay.status==='open'){
+            return day;
+        }
         const response= await postOpen(day);
         if(response.status===200){
-            const calendarStatusResp= await getCalendarStatus();
-            const calendarStatusData= calendarStatusResp.data;
-            const findDay=calendarStatusData.find(eachDay=>eachDay && eachDay.day===day);
+            const findDay=await getStatusForDay(day);
             if(findDay && findDay.status==='open')return day;
         }
         Swal.fire({
