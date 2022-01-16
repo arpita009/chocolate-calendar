@@ -1,1 +1,1 @@
-[{"day":1,"status":"open"},null,null,{"day":4,"status":"open"},null,null,null,null,null,{"day":10,"status":"open"}]
+[{"day":1,"status":"open"},{"day":2,"status":"open"},{"day":3,"status":"open"},{"day":4,"status":"empty"},{"day":5,"status":"open"},{"day":6,"status":"empty"},{"day":7,"status":"open"},null,null,null,null,{"day":12,"status":"open"},null,{"day":14,"status":"open"}]

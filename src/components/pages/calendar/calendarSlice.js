@@ -2,7 +2,7 @@
 
 import {  createSlice,createAsyncThunk } from '@reduxjs/toolkit';
 import Swal from 'sweetalert2';
-import {postOpen,getStatus} from '../../../apis/calendar/calendarAPI';
+import { postOpen,getStatus,postClosed } from '../../../apis/calendar/calendarAPI';
 
 export const calendarStatus={NotAvailable:0, Available:1, Open:2, Eaten:3};
 const initialState = {
@@ -40,7 +40,29 @@ export const setStatusAvailableToOpenAsync = createAsyncThunk(
         Swal.fire({
                 icon : 'error',
                 title: "Can't post",
-            });
+        });
+        return 'Error';
+    }
+);
+export const setStatusOpenToClosedAsync = createAsyncThunk(
+    'calendar/postClosed',
+    async (day)=>{
+        const getFindDay=await getStatusForDay(day);
+        if(getFindDay && getFindDay.status==='empty'){
+            return day;
+        }
+        if(getFindDay && getFindDay.status==='open'){
+            return 'error';
+        }
+        const response= await postClosed(day);
+        if(response.status===200){
+            const findDay=await getStatusForDay(day);
+            if(findDay && findDay.status==='empty')return day;
+        }
+        Swal.fire({
+                icon : 'error',
+                title: "Can't post",
+        });
         return 'Error';
     }
 );
@@ -73,6 +95,18 @@ export const calendarSlice=createSlice({
           .addCase(setStatusAvailableToOpenAsync.rejected, (state) => {
             state.status = 'failed';
           })
+
+          .addCase(setStatusOpenToClosedAsync.pending, (state) => {
+            state.status = 'loading';
+          })
+          .addCase(setStatusOpenToClosedAsync.fulfilled, (state,action) => {
+            state.status = 'idle';
+            const currDay = action.payload;
+            state.dayStatus[currDay-1].status=calendarStatus.Eaten;  
+          })
+          .addCase(setStatusOpenToClosedAsync.rejected, (state) => {
+            state.status = 'failed';
+          })
     },
 });
 
@@ -87,11 +121,25 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
             break;
         }
         case calendarStatus.NotAvailable:{
-            console.log('Sorry not available');
+            Swal.fire({
+                icon : 'error',
+                title: "You have a selected a future date!",
+            });
+            break;
+        }
+        case calendarStatus.Open:{
+            dispatch(setStatusOpenToClosedAsync(day));
+            break;
+        }
+        case calendarStatus.Close:{
+            Swal.fire({
+                icon : 'error',
+                title: "You have already eaten!",
+            });
             break;
         }
         default:{
-            console.log('Cant update!');
+            console.log('Can not update!');
             break;
         }
     }
