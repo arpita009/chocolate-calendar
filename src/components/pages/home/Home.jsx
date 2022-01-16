@@ -3,7 +3,6 @@ import React,{useState} from 'react';
 import { TextField, Button,Typography } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/lab";
-import dateFormatting from './helperFunctions/dateFormatting';
 import { useHistory } from "react-router"; 
 import {  useDispatch } from 'react-redux';
 import {submitCurrentDate} from './userSlice'
@@ -35,7 +34,6 @@ const Home =(props)=>{
         console.log('Inside hand')
         if (Object.keys(errors).length === 0) {
           setFormErrors({});
-        //   const day = dateFormatting(startDate);
           const formData = {
             name,
             day: startDate.getDate(),
