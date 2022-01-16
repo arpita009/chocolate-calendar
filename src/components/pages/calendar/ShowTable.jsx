@@ -1,21 +1,22 @@
 import React from "react";
 import { Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper } from "@mui/material";
+import {calendarStatus} from "./calendarSlice";
 
 
 const ShowTable=(props)=>{
     const {header,tableInfo} =props
     const getStatus=(status)=>{
         switch(status){
-            case 0:{
+            case calendarStatus.NotAvailable:{
                 return 'Not Available';
             }
-            case 1:{
+            case calendarStatus.Available:{
                 return 'Available';
             }
-            case 3:{
+            case calendarStatus.Open:{
                 return 'Slot open';
             }
-            case 4:{
+            case calendarStatus.Eaten:{
                 return 'Chocolate Eaten';
             }
             default:{
@@ -23,6 +24,7 @@ const ShowTable=(props)=>{
             }
         }
     }
+    
     return(
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
