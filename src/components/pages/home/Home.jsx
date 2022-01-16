@@ -22,7 +22,6 @@ const Home =(props)=>{
         if (typeof name.trim() !== "string") {
           errors.name = "Enter valid name";
         }
-        console.log("date type", typeof startDate, startDate);
         if (startDate==='null') {
           console.log("Date", startDate);
           errors.startDate = "Start date mandatory";
@@ -31,7 +30,6 @@ const Home =(props)=>{
     const handleSubmit = (e) => { 
         e.preventDefault();
         runValidations();
-        console.log('Inside hand')
         if (Object.keys(errors).length === 0) {
           setFormErrors({});
           const formData = {
@@ -55,7 +53,6 @@ const Home =(props)=>{
             <TextField
                 // required
                 margin="normal"
-                required
                 value={name}
                 id="name"
                 label="Enter your Name"
@@ -72,7 +69,7 @@ const Home =(props)=>{
                 <DatePicker
                 required
                 disableFuture
-                inputFormat="MM/dd/yyyy"
+                inputFormat="dd/MM/yyyy"
                 label="Start date"
                 value={startDate}
                 onChange={(startDate) => {
