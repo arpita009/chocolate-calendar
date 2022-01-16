@@ -16,5 +16,5 @@ const getMonthString=(month)=>{
     }
 }
 
-const getFormatDate=(selectedDate)=>`${String(selectedDate.day)}-${getMonthString(selectedDate.month).toUpperCase()}-${String(selectedDate.year)}`;
+const getFormatDate=(selectedDate)=>`${String(selectedDate.getDate())}-${getMonthString(selectedDate.getMonth()).toUpperCase()}-${String(selectedDate.getFullYear())}`;
 export default getFormatDate;

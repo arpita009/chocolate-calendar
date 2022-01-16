@@ -8,51 +8,50 @@ import getDayInfo from '../home/helperFunctions/getDayInfo';
 import { Box,Typography,Button } from '@mui/material'
 import ShowTable from './ShowTable';
 import getFormatDate from '../home/helperFunctions/getFormatDate';
-import {initializeCalendarStatus,selectDayStatus} from './calendarSlice'
+import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay} from './calendarSlice'
 
 const Calendar =(props)=>{
+    // Declare State Variables
+    /*
+    selectedDate state variable to tracks selected date from the calender. 
+    */  
     const[selectedDate, setSelectedDate]= useState(0);
+    /*
+    selectCurrentDate state variable to track current Date selected from home screen. 
+    */
+    const[selectCurrentDate,setSelectCurrentDate]=useState(new Date());
+    // Declare Local Variables
     const dayStatus=useSelector(selectDayStatus);
     const userSelectedDate={day:useSelector(selectDay),month:useSelector(selectMonth),year:useSelector(selectYear)};
     const dispatch= useDispatch();
+
     useEffect(()=>{
-        console.log('inital Render',userSelectedDate.day,getDayInfo(userSelectedDate.year,userSelectedDate.month));
-        const formData={userSelectedDay:userSelectedDate.day,maxDays:getDayInfo(userSelectedDate.year,userSelectedDate.month)}
-        console.log('formData',formData)
+        const formData={userSelectedDay:userSelectedDate.day,maxDays:getDayInfo(userSelectedDate.year,userSelectedDate.month)};
+        setSelectCurrentDate(new Date(userSelectedDate.year,userSelectedDate.month,userSelectedDate.day));
         dispatch(initializeCalendarStatus(formData));
-    },[])
-    const name=useSelector(selectName);
+    },[]);
 
     const getMaxDate=()=>{
-        console.log('getMaxDate',getDayInfo(userSelectedDate.year,userSelectedDate.month))
         return new Date( userSelectedDate.year,userSelectedDate.month,getDayInfo(userSelectedDate.year,userSelectedDate.month));
     };
+
     const getMinDate=()=>{
         return new Date(userSelectedDate.year,userSelectedDate.month,1);
     };
+
     const handleDateChange=(value)=>{
         setSelectedDate(value.getDate());
     };
-    // const createTableData=()=>{
-    //     const slNos=Array.from({length: getDayInfo(userSelectedDate.year,userSelectedDate.month)}, (_, i) => i + 1);
-    //     const resultRows=slNos.map((eachDay) =>{
-    //         if(eachDay>userSelectedDate.day){
-    //             return {day:eachDay,status:0};
-    //         }else{
-    //             return {day:eachDay,status:1};
-    //         }
-    //     })
-    //     console.log('createTableData',resultRows)
-    //     return resultRows;
-    // };
-    const handleNextDay=()=>{
-        console.log('Next')
 
+    const handleNextDay=()=>{
+        setSelectCurrentDate(new Date(selectCurrentDate.getFullYear(),selectCurrentDate.getMonth(),selectCurrentDate.getDate()+1));
+        // dispatch(setStatusNotAvailableToAvailableOnNextDay())
     };
+
     return(
         <Box>
             <Typography>
-                You selected <strong>{getFormatDate(userSelectedDate)}</strong> as current date.
+                You selected <strong>{getFormatDate(selectCurrentDate)}</strong> as current date.
             </Typography>
             <Button variant='contained' onClick={handleNextDay}>Next Day</Button>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -63,7 +62,6 @@ const Calendar =(props)=>{
                 />
             </LocalizationProvider>
             <ShowTable header={['Day','Status']} tableInfo={dayStatus}/>
-            {/* <ShowTable header={['Day','Status']} tableInfo={createTableData()}/> */}
         </Box>
     )
 }

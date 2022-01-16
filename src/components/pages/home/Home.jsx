@@ -9,7 +9,7 @@ import {submitCurrentDate} from './userSlice'
 
 const Home =(props)=>{
     const [name, setName] =useState('')
-    const [startDate, setStartDate] = React.useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
     const [formErrors, setFormErrors] = useState({}) //state variable to track form errors
     const errors={} //local error variable
     const history=useHistory();

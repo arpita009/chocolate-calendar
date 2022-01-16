@@ -16,9 +16,16 @@ export const calendarSlice=createSlice({
             const resultRows=slNos.map(day=>(day>eachDayStatus.userSelectedDay) ? ({day,status:0}): ({day,status:1}));
             // status 0 represents 'Not available' for future dates
             // status 1 represents 'Available' (current day + past days)
-            console.log('resultRows',resultRows);
             state.dayStatus=[...resultRows];
-
+        },
+        setStatusNotAvailableToAvailableOnNextDay: (state,action)=>{
+            const nextDay=action.payload;
+            state.dayStatus[nextDay].status=1;
+            // const resultDayStatus=state.dayStatus.map((day)=>{
+            //     if(day>nextDay){
+            //         return [...state.dayStatus,]
+            //     }
+            // })
         }
     }
 })
