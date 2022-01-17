@@ -5,12 +5,13 @@ import { LocalizationProvider, CalendarPicker } from "@mui/lab";
 import { useSelector,useDispatch } from 'react-redux';
 import { selectDay, selectMonth, selectYear,selectName } from '../home/userSlice';
 import getDayInfo from '../home/helperFunctions/getDayInfo';
-import { Box,Typography,Button } from '@mui/material'
+import { Box,Typography,Button,Grid } from '@mui/material'
 import ShowTable from './ShowTable';
 import getFormatDate from '../home/helperFunctions/getFormatDate';
 import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay,calendarDateChange} from './calendarSlice'
 import BoxContainerStyle from './styles/BoxContainerStyle';
 import BoxTextAlignStyle from './styles/BoxTextAlignStyle';
+import BoxCalendarTableStyle from './styles/BoxCalendarTableStyle';
 
 const Calendar =(props)=>{
     // Declare State Variables
@@ -61,15 +62,25 @@ const Calendar =(props)=>{
                 <Button variant='contained' onClick={handleNextDay}>Next Day</Button>
             </BoxTextAlignStyle>
             
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <CalendarPicker 
-                        onChange={(value)=>handleDateChange(value)} 
-                        maxDate={getMaxDate()}
-                        minDate={getMinDate()}
-                    />
-                </LocalizationProvider>
-                <ShowTable header={['Day','Status']} tableInfo={dayStatus}/>
-
+            <Grid container spacing={35} direction="row"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Grid item>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} >
+                        <CalendarPicker 
+                            onChange={(value)=>handleDateChange(value)} 
+                            maxDate={getMaxDate()}
+                            minDate={getMinDate()}
+                        />
+                    </LocalizationProvider>
+                </Grid>
+                <Grid item>
+                <Grid container>
+                    <ShowTable header={['Day','Status']} tableInfo={dayStatus}/>
+                 </Grid>
+                </Grid>
+            </Grid>
         </Box>
     )
 }

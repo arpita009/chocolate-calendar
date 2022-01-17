@@ -2,9 +2,9 @@ import React from "react";
 import { Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper } from "@mui/material";
 import {calendarStatus} from "./calendarSlice";
 
-
 const ShowTable=(props)=>{
-    const {header,tableInfo} =props
+    const {header,tableInfo} =props;
+    console.log('ShowTable tableInfo',tableInfo, typeof tableInfo);
     const getStatus=(status)=>{
         switch(status){
             case calendarStatus.NotAvailable:{
@@ -27,8 +27,8 @@ const ShowTable=(props)=>{
     
     return(
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
+            <Table sx={{ minWidth: 30 }} size="small" aria-label="a dense table">
+                <TableHead sx={{background: '#a8d2ed'}}>
                     <TableRow>
                         {header.map((eachHeading,idx)=>{
                             return <TableCell key={idx}>{eachHeading}</TableCell>
@@ -50,6 +50,7 @@ const ShowTable=(props)=>{
                 </TableBody>
             </Table>
         </TableContainer>
+
     )
 }
 export default ShowTable;
