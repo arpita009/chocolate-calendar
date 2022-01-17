@@ -9,7 +9,6 @@ const RouteComp = (props) => {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/chocolateCalendar' component={Calendar} />
-          {/* <Route component={NotFound}/> */}
         </Switch>
       </>
     );

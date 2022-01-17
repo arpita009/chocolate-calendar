@@ -14,17 +14,27 @@ const ShowTable=(props)=>{
                 return 'Available';
             }
             case calendarStatus.Open:{
-                return 'Slot open';
+                return 'Opened';
             }
             case calendarStatus.Eaten:{
-                return 'Chocolate Eaten';
+                return 'Empty';
             }
             default:{
                 return 'Undefined';
             }
         }
     }
-    
+    const getColor=(status)=>{
+        if(status===0){
+            return <TableCell align="right" sx={{backgroundColor: 'pink'}}>{getStatus(status)}</TableCell>
+        }else if(status===1){
+            return <TableCell align="right" sx={{backgroundColor: 'yellow'}}>{getStatus(status)}</TableCell>
+        }else if(status===2){
+            return <TableCell align="right" sx={{backgroundColor: 'green'}}>{getStatus(status)}</TableCell>
+        }else if(status===3){
+            return <TableCell align="right" sx={{backgroundColor: 'red'}}>{getStatus(status)}</TableCell>
+        }
+    }
     return(
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 30 }} size="small" aria-label="a dense table">
@@ -44,7 +54,8 @@ const ShowTable=(props)=>{
                             <TableCell component="th" scope="row">
                                 {row.day}
                             </TableCell>
-                            <TableCell align="right">{getStatus(row.status)}</TableCell>
+                            {getColor(row.status)}
+                            {/* <TableCell align="right">{getStatus(row.status)}</TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>
