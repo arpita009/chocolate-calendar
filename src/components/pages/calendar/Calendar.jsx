@@ -9,9 +9,8 @@ import { Box,Typography,Button,Grid } from '@mui/material'
 import ShowTable from './ShowTable';
 import getFormatDate from '../home/helperFunctions/getFormatDate';
 import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay,calendarDateChange} from './calendarSlice'
-import BoxContainerStyle from './styles/BoxContainerStyle';
 import BoxTextAlignStyle from './styles/BoxTextAlignStyle';
-import BoxCalendarTableStyle from './styles/BoxCalendarTableStyle';
+
 
 const Calendar =(props)=>{
     // Declare State Variables
