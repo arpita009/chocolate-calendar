@@ -9,6 +9,8 @@ const initialState = {
     dayStatus: [],
     calStatus: 'idle',
 };
+const chocolateOpen='open';
+const chocolateEmpty='empty';
 
 async function getCalendarStatus(){
     const response= getStatus();
@@ -26,46 +28,50 @@ export const setStatusAvailableToOpenAsync = createAsyncThunk(
     'calendar/postOpen',
     async (day)=>{
         const getFindDay=await getStatusForDay(day);
-        if(getFindDay && getFindDay.status==='closed'){
+        if(getFindDay && getFindDay.status=== chocolateEmpty){
             return 'error';
         }
-        if(getFindDay && getFindDay.status==='open'){
+        if(getFindDay && getFindDay.status=== chocolateOpen){
             return day;
         }
         const response= await postOpen(day);
         if(response.status===200){
             const findDay=await getStatusForDay(day);
-            if(findDay && findDay.status==='open')return day;
+            if(findDay && findDay.status=== chocolateOpen)return day;
         }
         Swal.fire({
                 icon : 'error',
                 title: "Can't post",
         });
-        return 'Error';
+
+        return 'error';
     }
 );
+
 export const setStatusOpenToClosedAsync = createAsyncThunk(
     'calendar/postClosed',
     async (day)=>{
-        const getFindDay=await getStatusForDay(day);
-        if(getFindDay && getFindDay.status==='empty'){
+        const getFindDay= await getStatusForDay(day);
+        if(getFindDay && getFindDay.status=== chocolateEmpty){
             return day;
         }
-        if(getFindDay && getFindDay.status==='open'){
-            return 'error';
+        if(getFindDay && getFindDay.status=== chocolateOpen){
+            const response= await postClosed(day);
+            if(response.status=== 200){
+                const findDay=await getStatusForDay(day);
+                if(findDay && findDay.status===chocolateEmpty)return day;
+            }
         }
-        const response= await postClosed(day);
-        if(response.status===200){
-            const findDay=await getStatusForDay(day);
-            if(findDay && findDay.status==='empty')return day;
-        }
+
         Swal.fire({
                 icon : 'error',
                 title: "Can't post",
         });
-        return 'Error';
+
+        return 'error';
     }
 );
+
 export const calendarSlice=createSlice({
     name: 'calendar',
     initialState,
@@ -82,6 +88,7 @@ export const calendarSlice=createSlice({
             state.dayStatus[currDay].status=calendarStatus.Available;            
         }
     },
+
     extraReducers: (builder) => {
         builder
           .addCase(setStatusAvailableToOpenAsync.pending, (state) => {
@@ -90,7 +97,10 @@ export const calendarSlice=createSlice({
           .addCase(setStatusAvailableToOpenAsync.fulfilled, (state,action) => {
             state.status = 'idle';
             const currDay = action.payload;
-            state.dayStatus[currDay-1].status=calendarStatus.Open;  
+            if(currDay !== 'error')
+                state.dayStatus[currDay-1].status=calendarStatus.Open;   
+            else
+                console.log("Error message from server");
           })
           .addCase(setStatusAvailableToOpenAsync.rejected, (state) => {
             state.status = 'failed';
@@ -102,7 +112,10 @@ export const calendarSlice=createSlice({
           .addCase(setStatusOpenToClosedAsync.fulfilled, (state,action) => {
             state.status = 'idle';
             const currDay = action.payload;
-            state.dayStatus[currDay-1].status=calendarStatus.Eaten;  
+            if(currDay !== 'error')
+                state.dayStatus[currDay-1].status=calendarStatus.Eaten;  
+            else
+                console.log("Error message from server");
           })
           .addCase(setStatusOpenToClosedAsync.rejected, (state) => {
             state.status = 'failed';
@@ -115,7 +128,9 @@ export const selectDayStatus = (state) => state.calendar.dayStatus;
 
 export const calendarDateChange = (day) => (dispatch, getState) => {
     const dayStatus = selectDayStatus(getState());
-    switch(dayStatus[day].status){
+    console.log("Day and status", day, dayStatus[day-1].status);
+
+    switch(dayStatus[day-1].status){
         case calendarStatus.Available:{
             dispatch(setStatusAvailableToOpenAsync(day));
             break;
@@ -131,7 +146,7 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
             dispatch(setStatusOpenToClosedAsync(day));
             break;
         }
-        case calendarStatus.Close:{
+        case calendarStatus.Eaten:{
             Swal.fire({
                 icon : 'error',
                 title: "You have already eaten!",

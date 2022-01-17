@@ -52,4 +52,16 @@ app.post('/eat/chocolate', (req, res) => {
   }
 });
 
+/** We have added API to reset chocolate server to make initialization */
+app.post('/reset/chocolate', (req, res) => {
+  try {
+    fs.readFileSync('chocolates.json');    
+    const json = JSON.stringify([]);
+    fs.writeFileSync('chocolates.json', json);
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send('something went wrong');
+  }
+});
+
 app.listen(5001);
