@@ -9,6 +9,8 @@ import { Box,Typography,Button } from '@mui/material'
 import ShowTable from './ShowTable';
 import getFormatDate from '../home/helperFunctions/getFormatDate';
 import {initializeCalendarStatus,selectDayStatus,setStatusNotAvailableToAvailableOnNextDay,calendarDateChange} from './calendarSlice'
+import BoxContainerStyle from './styles/BoxContainerStyle';
+import BoxTextAlignStyle from './styles/BoxTextAlignStyle';
 
 const Calendar =(props)=>{
     // Declare State Variables
@@ -52,18 +54,22 @@ const Calendar =(props)=>{
 
     return(
         <Box>
-            <Typography>
-                You selected <strong>{getFormatDate(selectCurrentDate)}</strong> as current date.
-            </Typography>
-            <Button variant='contained' onClick={handleNextDay}>Next Day</Button>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <CalendarPicker 
-                    onChange={(value)=>handleDateChange(value)} 
-                    maxDate={getMaxDate()}
-                    minDate={getMinDate()}
-                />
-            </LocalizationProvider>
-            <ShowTable header={['Day','Status']} tableInfo={dayStatus}/>
+            <BoxTextAlignStyle>
+                <Typography >
+                    You selected <strong>{getFormatDate(selectCurrentDate)}</strong> as current date.
+                </Typography>
+                <Button variant='contained' onClick={handleNextDay}>Next Day</Button>
+            </BoxTextAlignStyle>
+            
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <CalendarPicker 
+                        onChange={(value)=>handleDateChange(value)} 
+                        maxDate={getMaxDate()}
+                        minDate={getMinDate()}
+                    />
+                </LocalizationProvider>
+                <ShowTable header={['Day','Status']} tableInfo={dayStatus}/>
+
         </Box>
     )
 }

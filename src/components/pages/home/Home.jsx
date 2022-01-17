@@ -6,7 +6,7 @@ import { LocalizationProvider, DatePicker } from "@mui/lab";
 import { useHistory } from "react-router"; 
 import {  useDispatch } from 'react-redux';
 import {submitCurrentDate} from './userSlice';
-import  PaperStyled  from './PaperStyle';
+import  PaperStyled from './styles/PaperStyle';
 
 const Home =(props)=>{
     const [name, setName] =useState('')
