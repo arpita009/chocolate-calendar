@@ -37,3 +37,44 @@ The goal of this challenge is to create a virtual representation of a winter cho
 IMPORTANT:
 please do not fork nor point pull requests to our repo on AIXITEX's page.
 Every other candidate would be able to see your soluiton.
+
+## Solution Overview
+With the available frontend boilerplate code and the requests to the server, the aim of the project is to acheive a virtual representation of a calendar to mark the status of each day in the current month.
+
+
+
+Ultimately, we would be about to track the consumption list for the particular month with the use of the calendar.
+
+
+
+## Features
+
+### Frontend
+- Home screen with a form to get the current date (i.e., from when the user needs to track) from the user.
+- On submit of the form, the user is redirected to 'chocolateCalendar' page.
+- chocolateCalendar pages basically contains a calendar alongwith a table tracking each day status for the current month.
+- When the user clicks on a particular day on the given calendar, the status on the table changes (Available->Open->Empty),
+- The chocolateCalendar also contains a next button (corresponding to next day implementation). On each click, the status changes from Not Available to Available.
+- Color codes are maintained to track each status (Not Available, Available, Open and Empty).
+
+### Backend
+- Implemented the reset of the server which would be required during initialization (chocolate.JSON file is emptied).
+-
+
+## Sequence Diagram
+
+
+
+### Component Architecture
+
+
+
+
+## Solution Overview
+With the available frontend boilerplate code and the requests to the server, the aim of the project is to acheive a virtual representation of a calendar to mark the status of each day in the current month.
+
+
+
+Ultimately, we would be about to track the consumption list for the particular month with the use of the calendar.
+
+
