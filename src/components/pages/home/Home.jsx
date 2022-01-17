@@ -7,6 +7,8 @@ import { useHistory } from "react-router";
 import {  useDispatch } from 'react-redux';
 import {submitCurrentDate} from './userSlice';
 import  PaperStyled from './styles/PaperStyled';
+import  HomeGridStyle from './styles/HomeGridStyle';
+import { Grid } from '@mui/material';
 
 const Home =(props)=>{
     const [name, setName] =useState('')
@@ -81,7 +83,7 @@ const Home =(props)=>{
                 />
             </LocalizationProvider>
             <br /><br />
-            <Button variant='contained' type='submit'>Submit</Button>
+            <Button variant='contained' type='submit' >Submit</Button>
           </form>
         </PaperStyled>
     );
