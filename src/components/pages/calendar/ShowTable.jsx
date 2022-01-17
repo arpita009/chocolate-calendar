@@ -4,7 +4,6 @@ import {calendarStatus} from "./calendarSlice";
 
 const ShowTable=(props)=>{
     const {header,tableInfo} =props;
-    console.log('ShowTable tableInfo',tableInfo, typeof tableInfo);
     const getStatus=(status)=>{
         switch(status){
             case calendarStatus.NotAvailable:{
@@ -17,7 +16,7 @@ const ShowTable=(props)=>{
                 return 'Opened';
             }
             case calendarStatus.Eaten:{
-                return 'Empty';
+                return 'Empty!';
             }
             default:{
                 return 'Undefined';
@@ -30,9 +29,9 @@ const ShowTable=(props)=>{
         }else if(status===1){
             return <TableCell align="right" sx={{backgroundColor: 'yellow'}}>{getStatus(status)}</TableCell>
         }else if(status===2){
-            return <TableCell align="right" sx={{backgroundColor: 'green'}}>{getStatus(status)}</TableCell>
+            return <TableCell align="right" sx={{backgroundColor: 'green', color: 'white'}}>{getStatus(status)}</TableCell>
         }else if(status===3){
-            return <TableCell align="right" sx={{backgroundColor: 'red'}}>{getStatus(status)}</TableCell>
+            return <TableCell align="right" sx={{backgroundColor: 'red'}}><strong>{getStatus(status)}</strong></TableCell>
         }
     }
     return(
@@ -55,7 +54,6 @@ const ShowTable=(props)=>{
                                 {row.day}
                             </TableCell>
                             {getColor(row.status)}
-                            {/* <TableCell align="right">{getStatus(row.status)}</TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>
