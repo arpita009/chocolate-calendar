@@ -5,7 +5,8 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/lab";
 import { useHistory } from "react-router"; 
 import {  useDispatch } from 'react-redux';
-import {submitCurrentDate} from './userSlice'
+import {submitCurrentDate} from './userSlice';
+import  PaperStyled  from './PaperStyle';
 
 const Home =(props)=>{
     const [name, setName] =useState('')
@@ -49,7 +50,8 @@ const Home =(props)=>{
         }
     };
     return(
-        <form onSubmit={handleSubmit}>
+        <PaperStyled>
+          <form onSubmit={handleSubmit}>
             <TextField
                 // required
                 margin="normal"
@@ -80,7 +82,8 @@ const Home =(props)=>{
             </LocalizationProvider>
             <br /><br />
             <Button variant='contained' type='submit'>Submit</Button>
-        </form>
+          </form>
+        </PaperStyled>
     );
 }
 export default Home;

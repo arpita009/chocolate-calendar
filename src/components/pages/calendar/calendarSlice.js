@@ -123,7 +123,7 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
         case calendarStatus.NotAvailable:{
             Swal.fire({
                 icon : 'error',
-                title: "You have a selected a future date!",
+                title: "You have selected a future date!",
             });
             break;
         }
