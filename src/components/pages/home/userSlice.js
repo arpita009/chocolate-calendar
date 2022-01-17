@@ -16,7 +16,6 @@ export const userSlice=createSlice({
             state.month=action.payload.month;
             state.year=action.payload.year;
             state.userName=action.payload.name;
-            console.log('useSlice',state.day,state.month, state.year,state.userName)
         }
     }
 })

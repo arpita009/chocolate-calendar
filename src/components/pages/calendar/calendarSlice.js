@@ -99,8 +99,6 @@ export const calendarSlice=createSlice({
             const currDay = action.payload;
             if(currDay !== 'error')
                 state.dayStatus[currDay-1].status=calendarStatus.Open;   
-            else
-                console.log("Error message from server");
           })
           .addCase(setStatusAvailableToOpenAsync.rejected, (state) => {
             state.status = 'failed';
@@ -114,9 +112,7 @@ export const calendarSlice=createSlice({
             const currDay = action.payload;
             if(currDay !== 'error')
                 state.dayStatus[currDay-1].status=calendarStatus.Eaten;  
-            else
-                console.log("Error message from server");
-          })
+            })
           .addCase(setStatusOpenToClosedAsync.rejected, (state) => {
             state.status = 'failed';
           })
@@ -128,8 +124,6 @@ export const selectDayStatus = (state) => state.calendar.dayStatus;
 
 export const calendarDateChange = (day) => (dispatch, getState) => {
     const dayStatus = selectDayStatus(getState());
-    console.log("Day and status", day, dayStatus[day-1].status);
-
     switch(dayStatus[day-1].status){
         case calendarStatus.Available:{
             dispatch(setStatusAvailableToOpenAsync(day));
@@ -154,7 +148,6 @@ export const calendarDateChange = (day) => (dispatch, getState) => {
             break;
         }
         default:{
-            console.log('Can not update!');
             break;
         }
     }

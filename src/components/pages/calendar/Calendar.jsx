@@ -23,12 +23,13 @@ const Calendar =(props)=>{
     */
     const[selectCurrentDate,setSelectCurrentDate]=useState(new Date());
     // Declare Local Variables
-    const dayStatus=useSelector(selectDayStatus);
-    const userSelectedDate={day:useSelector(selectDay),month:useSelector(selectMonth),year:useSelector(selectYear)};
+    const dayStatus= useSelector(selectDayStatus);
+    const userName= useSelector(selectName);
+    const userSelectedDate= {day:useSelector(selectDay),month:useSelector(selectMonth),year:useSelector(selectYear)};
     const dispatch= useDispatch();
 
     useEffect(()=>{
-        const formData={userSelectedDay:userSelectedDate.day,maxDays:getDayInfo(userSelectedDate.year,userSelectedDate.month)};
+        const formData= {userSelectedDay:userSelectedDate.day,maxDays:getDayInfo(userSelectedDate.year,userSelectedDate.month)};
         setSelectCurrentDate(new Date(userSelectedDate.year,userSelectedDate.month,userSelectedDate.day));
         dispatch(initializeCalendarStatus(formData));
     },[]);
@@ -42,18 +43,25 @@ const Calendar =(props)=>{
     };
 
     const handleDateChange=(value)=>{
-        console.log('handleDateChange',value.getDate());
         dispatch(calendarDateChange(value.getDate()));
         setSelectedDate(value.getDate());
     };
 
     const handleNextDay=()=>{
-        dispatch(setStatusNotAvailableToAvailableOnNextDay(selectCurrentDate.getDate()));
-        setSelectCurrentDate(new Date(selectCurrentDate.getFullYear(),selectCurrentDate.getMonth(),selectCurrentDate.getDate()+1));
+        if(selectCurrentDate.getDate()<getMaxDate().getDate()){
+            dispatch(setStatusNotAvailableToAvailableOnNextDay(selectCurrentDate.getDate()));
+            setSelectCurrentDate(new Date(selectCurrentDate.getFullYear(),selectCurrentDate.getMonth(),selectCurrentDate.getDate()+1));
+        }     
     };
 
     return(
         <Box>
+            <Typography variant="h4">
+                    Hello {userName}!
+            </Typography>
+            <Typography variant="h6">
+                    Welcome to Winter Chocolate Calendar
+            </Typography>
             <BoxTextAlignStyle>
                 <Typography >
                     You selected <strong>{getFormatDate(selectCurrentDate)}</strong> as current date.

@@ -13,43 +13,25 @@ import { Grid } from '@mui/material';
 const Home =(props)=>{
     const [name, setName] =useState('')
     const [startDate, setStartDate] = useState(new Date());
-    const [formErrors, setFormErrors] = useState({}) //state variable to track form errors
-    const errors={} //local error variable
     const history=useHistory();
     const dispatch=useDispatch();
     const handleChange = (e) => {
         setName(e.target.value);
     };
-    const runValidations = () => {
-        //run form validations
-        if (typeof name.trim() !== "string") {
-          errors.name = "Enter valid name";
-        }
-        if (startDate==='null') {
-          console.log("Date", startDate);
-          errors.startDate = "Start date mandatory";
-        }
-    };
+  
     const handleSubmit = (e) => { 
         e.preventDefault();
-        runValidations();
-        if (Object.keys(errors).length === 0) {
-          setFormErrors({});
-          const formData = {
+        const formData = {
             name,
             day: startDate.getDate(),
             month: startDate.getMonth(),
             year: startDate.getFullYear()
-          };
-          console.log("formData", formData);
-          dispatch(submitCurrentDate(formData))
+        }
+        dispatch(submitCurrentDate(formData))
 
         //   redirect to chocolate calendar page on form submission
-          history.push("/chocolateCalendar");
-        } else {
-          console.log("formErrors", errors);
-          setFormErrors(errors);
-        }
+        history.push("/chocolateCalendar");
+        
     };
     return(
         <PaperStyled>
@@ -66,8 +48,6 @@ const Home =(props)=>{
                 onChange={handleChange}
             />
             <br />
-            {/* {formErrors.name && <Typography>{formErrors.name}</Typography>} */}
-            {/* {formErrors.name && <span>{formErrors.name}</span>} */}
             <br />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
