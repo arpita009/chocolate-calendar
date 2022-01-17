@@ -15,3 +15,12 @@ export function postClosed(day) {
     return axios.post(`http://localhost:5001/eat/chocolate`,{day})
         .then((response)=> response).catch((err)=>console.log('error',err));
 };
+
+export async function postReset() {
+    try {
+        const response = await axios.post(`http://localhost:5001/reset/chocolate`);
+        return response;
+    } catch (err) {
+        return console.log('error', err);
+    }
+};

@@ -53,7 +53,7 @@ app.post('/eat/chocolate', (req, res) => {
 });
 
 /** We have added API to reset chocolate server to make initialization */
-app.post('/reset/chocolate', (req, res) => {
+app.post('/reset/chocolate', (_, res) => {
   try {
     fs.readFileSync('chocolates.json');    
     const json = JSON.stringify([]);

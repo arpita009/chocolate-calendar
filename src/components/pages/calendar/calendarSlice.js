@@ -2,7 +2,7 @@
 
 import {  createSlice,createAsyncThunk } from '@reduxjs/toolkit';
 import Swal from 'sweetalert2';
-import { postOpen,getStatus,postClosed } from '../../../apis/calendar/calendarAPI';
+import { postOpen,getStatus,postClosed , postReset} from '../../../apis/calendar/calendarAPI';
 
 export const calendarStatus={NotAvailable:0, Available:1, Open:2, Eaten:3};
 const initialState = {
@@ -81,10 +81,10 @@ export const calendarSlice=createSlice({
             const slNos=Array.from({length: eachDayStatus.maxDays}, (_, i) => i + 1);
             const resultRows=slNos.map(day=>(day>eachDayStatus.userSelectedDay) ? ({day,status:calendarStatus.NotAvailable}): ({day,status:calendarStatus.Available}));
             state.dayStatus=[...resultRows];
+            postReset();
         },
         setStatusNotAvailableToAvailableOnNextDay: (state,action)=>{
             const currDay=action.payload;
-            console.log('currDay',currDay);
             state.dayStatus[currDay].status=calendarStatus.Available;            
         }
     },
