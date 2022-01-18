@@ -70,5 +70,8 @@ Ultimately, we would be about to track the consumption list for the particular m
 - Need to handle refresh with the implementation of localStorage.
 - Calendar view isn't updated for previous months.
 
+## Demo Video
+[![Demo](https://github.com/arpita009/chocolate-calendar/blob/solution/others/2022-01-18-01-27-18_Trim_Trim.gif?raw=true)]
+
 
 
