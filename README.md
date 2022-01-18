@@ -48,7 +48,7 @@ Ultimately, we would be about to track the consumption list for the particular m
 ### Frontend
 - Home screen with a form to get the current date (i.e., from when the user needs to track) from the user.
 - On submit of the form, the user is redirected to 'chocolateCalendar' page.
-- Maximum number of Days are calculated from the month selected from Date peaker. Example for Feb month 28/29 , Jan 31 and March 30. 
+- Maximum number of Days are calculated from the month selected from Date picker. Example for Feb month 28/29 , Jan 31 and March 30. 
 - chocolateCalendar pages basically contains a calendar alongwith a table tracking each day status for the current month.
 - When the user clicks on a particular day on the given calendar, the status on the table changes (Available->Open->Empty).
 - The chocolateCalendar also contains a next button (corresponding to next day implementation). On each click, the status changes from Not Available to Available.
