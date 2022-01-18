@@ -41,11 +41,7 @@ Every other candidate would be able to see your soluiton.
 ## Solution Overview
 With the available frontend boilerplate code and the requests to the server, the aim of the project is to acheive a virtual representation of a calendar to mark the status of each day in the current month.
 
-
-
 Ultimately, we would be about to track the consumption list for the particular month with the use of the calendar.
-
-
 
 ## Features
 
@@ -59,22 +55,20 @@ Ultimately, we would be about to track the consumption list for the particular m
 
 ### Backend
 - Implemented the reset of the server which would be required during initialization (chocolate.JSON file is emptied).
--
+- Suggestion- In case of invalid day request by the user (POST request), data should not be updated in the JSON file as it may cause unnecessary overhead on the server. The user should ONLY receive a status of 400 stating "Bad Request".
 
-## Sequence Diagram
+## State Diagram
 
-
+[![StateDiagram](https://github.com/arpita009/chocolate-calendar/blob/solution/others/sequence_diagram.JPG?raw=true)]
 
 ### Component Architecture
 
+[![ComponentArchitecture](https://github.com/arpita009/chocolate-calendar/blob/solution/others/component_architecture.JPG?raw=true)]
 
 
+## Known Issues
+- Need to handle refresh with the implementation of localStorage.
+- Calendar view isn't updated for previous months.
 
-## Solution Overview
-With the available frontend boilerplate code and the requests to the server, the aim of the project is to acheive a virtual representation of a calendar to mark the status of each day in the current month.
-
-
-
-Ultimately, we would be about to track the consumption list for the particular month with the use of the calendar.
 
 
