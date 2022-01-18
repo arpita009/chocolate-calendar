@@ -11,6 +11,6 @@ const PaperStyled = styled(Paper,{})({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 900,
+    height: 1580,
 });
 export default PaperStyled; 
