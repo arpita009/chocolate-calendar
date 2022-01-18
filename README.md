@@ -50,7 +50,7 @@ Ultimately, we would be about to track the consumption list for the particular m
 - On submit of the form, the user is redirected to 'chocolateCalendar' page.
 - Maximum number of Days are calculated from the month selected from Date peaker. Example for Feb month 28/29 , Jan 31 and March 30. 
 - chocolateCalendar pages basically contains a calendar alongwith a table tracking each day status for the current month.
-- When the user clicks on a particular day on the given calendar, the status on the table changes (Available->Open->Empty),
+- When the user clicks on a particular day on the given calendar, the status on the table changes (Available->Open->Empty).
 - The chocolateCalendar also contains a next button (corresponding to next day implementation). On each click, the status changes from Not Available to Available.
 - Color codes are maintained to track each status (Not Available, Available, Open and Empty).
 
@@ -66,6 +66,10 @@ Ultimately, we would be about to track the consumption list for the particular m
 
 [![ComponentArchitecture](https://github.com/arpita009/chocolate-calendar/blob/solution/others/component_architecture.JPG?raw=true)]
 
+## Unit Test
+- created __test__ folder to test. 
+- Test all pages rendering behavior using React Test Library.
+- Test state change in Redux tool kit. 
 
 ## Known Issues
 1- Need to handle refresh with the implementation of localStorage.
