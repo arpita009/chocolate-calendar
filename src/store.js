@@ -7,6 +7,6 @@ export default configureStore({
   reducer: {
     slice: slice.reducer,
     user: userReducer,
-    calendar: calendarReducer
+    calendar: calendarReducer,
   },
 });
