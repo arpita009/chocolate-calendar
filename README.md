@@ -41,7 +41,7 @@ Every other candidate would be able to see your soluiton.
 ## Solution Overview
 With the available frontend boilerplate code and the requests to the server, the aim of the project is to acheive a virtual representation of a calendar to mark the status of each day in the current month.
 
-Ultimately, we would be about to track the consumption list for the particular month with the use of the calendar.
+Ultimately, we would be able to track the consumption list for the particular month with the use of the calendar.
 
 ## Features
 
