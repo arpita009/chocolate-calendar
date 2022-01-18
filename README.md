@@ -48,12 +48,13 @@ Ultimately, we would be about to track the consumption list for the particular m
 ### Frontend
 - Home screen with a form to get the current date (i.e., from when the user needs to track) from the user.
 - On submit of the form, the user is redirected to 'chocolateCalendar' page.
+- Maximum number of Days are calculated from the month selected from Date peaker. Example for Feb month 28/29 , Jan 31 and March 30. 
 - chocolateCalendar pages basically contains a calendar alongwith a table tracking each day status for the current month.
 - When the user clicks on a particular day on the given calendar, the status on the table changes (Available->Open->Empty),
 - The chocolateCalendar also contains a next button (corresponding to next day implementation). On each click, the status changes from Not Available to Available.
 - Color codes are maintained to track each status (Not Available, Available, Open and Empty).
 
-### Backend
+### Server Backend
 - Implemented the reset of the server which would be required during initialization (chocolate.JSON file is emptied).
 - Suggestion- In case of invalid day request by the user (POST request), data should not be updated in the JSON file as it may cause unnecessary overhead on the server. The user should ONLY receive a status of 400 stating "Bad Request".
 
@@ -67,8 +68,8 @@ Ultimately, we would be about to track the consumption list for the particular m
 
 
 ## Known Issues
-- Need to handle refresh with the implementation of localStorage.
-- Calendar view isn't updated for previous months.
+1- Need to handle refresh with the implementation of localStorage.
+2- Calendar view isn't updated for previous months.
 
 ## Demo Video
 [![Demo](https://github.com/arpita009/chocolate-calendar/blob/solution/others/2022-01-18-01-27-18_Trim_Trim.gif?raw=true)]
